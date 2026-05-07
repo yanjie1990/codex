@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.mjs",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "index.html",
+          "zh/**",
+          "product-angle-generator/**",
+          "image-to-3d-converter/**",
+          "admin/**",
+          "src/**",
+          "assets/**",
+          "robots.txt",
+          "sitemap.xml"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.mjs"
+    }
+  ]
+}

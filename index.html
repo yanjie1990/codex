@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Product Angle Generator | imgcraft AI</title>
+    <meta
+      name="description"
+      content="Upload one product photo, adjust X/Y/Z angles, and generate ecommerce-ready product views for PDPs, ads, and marketplace listings."
+    />
+    <meta
+      name="keywords"
+      content="ai product angle generator, product angle generator, image angle generator, ecommerce product angles"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="AI Product Angle Generator | imgcraft AI" />
+    <meta
+      property="og:description"
+      content="Turn one flat product image into multiple realistic viewing angles with XYZ controls built for ecommerce teams."
+    />
+    <meta property="og:url" content="https://www.imgcraftai.com/" />
+    <link rel="canonical" href="https://www.imgcraftai.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.imgcraftai.com/" />
+    <link rel="alternate" hreflang="zh-CN" href="https://www.imgcraftai.com/zh/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.imgcraftai.com/" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon_imgcraftai.svg" />
+    <meta name="google-client-id" content="774466746219-sd2uv6g8eqttbhd7vltshhp2pqslhd4e.apps.googleusercontent.com" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script src="/assets/vendor/three.r128.min.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "name": "imgcraft AI Product Angle Generator",
+            "url": "https://www.imgcraftai.com/",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Web",
+            "description": "Generate multi-angle product images from a single photo with X, Y, and Z angle controls.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does this product angle generator do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It turns one uploaded image into multiple new viewing angles so teams can create richer product visuals without building a full 3D model."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I need 3D software or a 3D artist?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. imgcraft AI is built for marketers, ecommerce operators, and product teams who need angle variations without a traditional 3D workflow."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I use the generated angles for ecommerce and ads?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. The tool is designed for product detail pages, creative testing, paid ads, marketplace listings, and sales collateral."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is it different from a generic AI image editor?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "This workflow is focused on angle generation. You upload a product image, control the direction with X, Y, and Z sliders, and generate output that matches merchandising and catalog needs."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header id="top" class="site-header">
+      <div class="container nav-wrap">
+        <a href="#top" class="logo" aria-label="imgcraft AI home">
+          <img src="/assets/imgcraft-logo.svg" alt="imgcraft AI logo" width="176" height="38" />
+        </a>
+        <nav class="nav" aria-label="Main Navigation">
+          <a href="#how-it-works">How It Works</a>
+          <a href="#features">Features</a>
+          <a href="#solutions">Pages</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="actions-wrap">
+          <div class="lang-switch" aria-label="Language switch">
+            <a href="https://www.imgcraftai.com/" class="active" aria-current="page">EN</a>
+            <span>|</span>
+            <a href="https://www.imgcraftai.com/zh/index.html">中文</a>
+          </div>
+          <div id="authStatus" class="auth-status hidden">
+            <img id="authAvatar" class="auth-avatar hidden" alt="" />
+            <div class="auth-status-copy">
+              <span id="authLabel" class="auth-label"></span>
+              <span id="authName" class="auth-name"></span>
+              <span id="authEmail" class="auth-email"></span>
+              <span id="subscriptionState" class="auth-state">Checking status…</span>
+              <div class="auth-status-badges">
+                <span id="trialCountState" class="account-trial">3 free</span>
+                <div id="whitelistBadge" class="account-badge hidden">Whitelist</div>
+              </div>
+            </div>
+            <button id="logoutBtn" class="btn btn-ghost auth-logout" type="button">Log out</button>
+            <button id="adminBtn" class="btn btn-ghost auth-admin-btn hidden" type="button">Admin</button>
+          </div>
+          <div id="googleSignInMount" class="google-signin-mount hidden"></div>
+          <button id="loginBtn" class="btn btn-ghost" type="button">Sign in with Google</button>
+          <span id="authMessage" class="auth-message" aria-live="polite"></span>
+          <button id="subscribeBtn" class="btn btn-primary" type="button">Subscribe</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container reveal" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Product Angle Generator</p>
+          <h1 id="hero-title">
+            <span class="linguistics-title hero-title-line">Generate Product Angles</span>
+            <span class="hero-title-line">From One Photo</span>
+          </h1>
+          <p class="hero-text">
+            <span>Upload a product image, adjust X/Y/Z controls,</span>
+            <span>and generate clean new angles for PDPs, ads, and listings.</span>
+          </p>
+        </div>
+        <div class="hero-visual" data-hero-angle-stage aria-label="Original image to generated product angle example">
+          <div class="hero-angle-slot hero-angle-slot-original">
+            <figure class="hero-angle-card hero-angle-card-original">
+              <div class="hero-angle-frame">
+                <img src="/assets/showcase/cyberpunk-ninja-original.png" alt="Original product image" />
+              </div>
+              <figcaption>Original</figcaption>
+            </figure>
+          </div>
+          <div class="hero-angle-divider" aria-hidden="true">
+            <svg viewBox="0 0 64 40" aria-hidden="true" focusable="false">
+              <path d="M7 24C17 12 31 8 47 14" />
+              <path d="M42 12l6 2-4 5" />
+            </svg>
+          </div>
+          <div class="hero-angle-slot hero-angle-slot-result">
+            <figure class="hero-angle-card hero-angle-card-result">
+              <div class="hero-angle-frame">
+                <img src="/assets/showcase/cyberpunk-ninja-back-view.jpg" alt="Generated new product angle" />
+              </div>
+              <figcaption>New Angle</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#tool" class="btn btn-primary hero-cta">Try it Now</a>
+        </div>
+        <div class="hero-proof" aria-label="Product highlights">
+          <div class="hero-proof-item">
+            <strong>3-axis control</strong>
+            <span>Steer the output with X, Y, and Z.</span>
+          </div>
+          <div class="hero-proof-item">
+            <strong>No 3D model</strong>
+            <span>Built for product teams, not just 3D artists.</span>
+          </div>
+          <div class="hero-proof-item">
+            <strong>Ready for launch</strong>
+            <span>Made for PDPs, ads, and marketplace listings.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="tool" class="section container reveal" aria-labelledby="tool-title">
+        <div class="section-intro">
+          <p class="eyebrow">Try the tool</p>
+          <h2 id="tool-title">Generate a new angle on this page</h2>
+          <p>Upload an image, set the angle, and generate the result without leaving the landing page.</p>
+        </div>
+        <div class="tool-shell">
+          <div class="tool-grid">
+            <div class="card left tool-panel">
+              <div class="tool-label-row">
+                <label class="tool-label" for="fileInput3D">Upload image</label>
+                <span class="tool-label-hint">Preview your image in the 3D scene</span>
+              </div>
+              <input type="file" id="fileInput3D" accept="image/*" class="sr-only" />
+
+              <div id="canvas-container" class="tool-canvas">
+                <img id="canvasPreview3D" class="tool-canvas-preview" src="/assets/figma/tool-canvas.png" alt="" />
+                <div class="tool-upload-stack">
+                  <button id="uploadZone3D" class="tool-upload" type="button">
+                    <span class="tool-upload-icon" aria-hidden="true">
+                      <span></span>
+                      <span></span>
+                    </span>
+                    <span>Upload</span>
+                  </button>
+                  <p class="tool-upload-caption">png, jpg, webp up to 8mb</p>
+                </div>
+              </div>
+
+              <div class="tool-controls">
+                <div class="axis-row">
+                  <span>X</span>
+                  <div class="axis-bar-wrap"><input type="range" id="xRot" min="-180" max="180" step="1" value="0" /></div>
+                  <strong id="xRotValue">0°</strong>
+                </div>
+                <div class="axis-row">
+                  <span>Y</span>
+                  <div class="axis-bar-wrap"><input type="range" id="yRot" min="-180" max="180" step="1" value="0" /></div>
+                  <strong id="yRotValue">0°</strong>
+                </div>
+                <div class="axis-row">
+                  <span>Z</span>
+                  <div class="axis-bar-wrap"><input type="range" id="zRot" min="-10" max="10" step="0.1" value="2" /></div>
+                  <strong id="zRotValue">2.0</strong>
+                </div>
+              </div>
+
+              <div class="tool-actions">
+                <button id="resetRotation" class="btn btn-ghost" type="button">Reset</button>
+                <button id="confirm3DBtn" class="btn btn-primary" type="button">Generate angle</button>
+              </div>
+              <p id="toolStatus" class="tool-status hidden" aria-live="polite"></p>
+
+              <div id="promptDisplay" class="tool-note hidden">
+                <p class="tool-note-label">Generated prompt</p>
+                <p id="generatedPrompt"></p>
+              </div>
+            </div>
+
+            <div class="tool-divider" aria-hidden="true">
+              <img src="/assets/figma/tool-divider.svg" alt="" />
+            </div>
+
+            <div class="card left tool-panel">
+              <div class="tool-result-head">
+                <label class="tool-label">Generated result</label>
+              </div>
+              <div class="tool-result">
+                <div id="resultPlaceholder3D" class="tool-empty">
+                  <img class="tool-result-icon" src="/assets/figma/tool-result-icon.svg" alt="" />
+                  <p>
+                    <span>Your generated image</span>
+                    <span>will appear here</span>
+                  </p>
+                </div>
+                <img id="resultImage3D" class="tool-result-image hidden" alt="Generated product angle" />
+                <div id="progressContainer3D" class="tool-progress hidden">
+                  <div class="tool-spinner"></div>
+                  <span id="progressText3D">0%</span>
+                  <div class="tool-progress-bar"><div id="progressFill3D"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="section container reveal workflow-section" aria-labelledby="workflow-title">
+        <div class="section-intro">
+          <p class="eyebrow">How it works</p>
+          <h2 id="workflow-title">A simple 3-step workflow</h2>
+          <p>Upload, adjust, generate.</p>
+        </div>
+        <div class="workflow-grid">
+          <article class="workflow-item">
+            <div class="workflow-media-card workflow-media-card-upload">
+              <div class="workflow-canvas-stage">
+                <img
+                  class="workflow-canvas-art"
+                  src="/assets/figma/tool-canvas.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <div class="workflow-upload-pill" aria-hidden="true">
+                  <span class="workflow-plus">+</span>
+                  <span>Upload</span>
+                </div>
+              </div>
+              <div class="workflow-preview">
+                <img
+                  src="/assets/showcase/ScreenShot_2025-12-23_093615_489.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+            <div class="workflow-caption">
+              <h3>Upload one image</h3>
+              <p>Start with an existing product photo.</p>
+            </div>
+          </article>
+
+          <article class="workflow-item">
+            <div class="workflow-media-card workflow-media-card-sliders">
+              <div class="workflow-slider-stack" aria-hidden="true">
+                <div class="workflow-slider-row" style="--fill: 106px; --thumb-size: 12px; --thumb-offset: 6px;">
+                  <span class="workflow-axis">X</span>
+                  <div class="workflow-slider-track">
+                    <span class="workflow-slider-fill"></span>
+                    <span class="workflow-slider-thumb"></span>
+                  </div>
+                  <span class="workflow-value">0°</span>
+                </div>
+                <div class="workflow-slider-row" style="--fill: 140px; --thumb-size: 16px; --thumb-offset: 8px;">
+                  <span class="workflow-axis">Y</span>
+                  <div class="workflow-slider-track">
+                    <span class="workflow-slider-fill"></span>
+                    <span class="workflow-slider-thumb"></span>
+                  </div>
+                  <span class="workflow-value">10°</span>
+                </div>
+                <div class="workflow-slider-row" style="--fill: 120px; --thumb-size: 12px; --thumb-offset: 6px;">
+                  <span class="workflow-axis">Z</span>
+                  <div class="workflow-slider-track">
+                    <span class="workflow-slider-fill"></span>
+                    <span class="workflow-slider-thumb"></span>
+                  </div>
+                  <span class="workflow-value">2.0</span>
+                </div>
+              </div>
+            </div>
+            <div class="workflow-caption">
+              <h3>Adjust X / Y / Z</h3>
+              <p>Set the direction before generation.</p>
+            </div>
+          </article>
+
+          <article class="workflow-item">
+            <div class="workflow-media-card workflow-media-card-export">
+              <div class="workflow-export-image">
+                <img
+                  src="/assets/showcase/0217766132429863f4fe0694cf2355048f5e9bb889d43f180c960_0.jpeg"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+            <div class="workflow-caption">
+              <h3>Export the result</h3>
+              <p>Download the new angle and publish.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="features" class="section container reveal" aria-labelledby="features-title">
+        <div class="section-intro">
+          <p class="eyebrow">Why it works</p>
+          <h2 id="features-title">Built for faster product content</h2>
+          <p>Focused on angle generation, not generic editing.</p>
+        </div>
+        <div class="grid three feature-grid">
+          <article class="card left">
+            <h3>Angle control</h3>
+            <p>Guide the output with X, Y, and Z instead of guessing with prompts.</p>
+          </article>
+          <article class="card left">
+            <h3>Commercial output</h3>
+            <p>Built for product pages, creative testing, and listing workflows.</p>
+          </article>
+          <article class="card left">
+            <h3>Ecommerce PDPs</h3>
+            <p>Get more coverage from limited source photos.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="solutions" class="section container reveal" aria-labelledby="solutions-title">
+        <div class="section-intro">
+          <p class="eyebrow">More pages</p>
+          <h2 id="solutions-title">Target the searches people actually use</h2>
+          <p>Use dedicated pages for related queries instead of forcing them all onto one homepage.</p>
+        </div>
+        <div class="grid two">
+          <article class="card left">
+            <h3><a href="/product-angle-generator/">Product Angle Generator</a></h3>
+            <p>Best for commercial intent: ecommerce, ads, and marketplace listings.</p>
+          </article>
+          <article class="card left">
+            <h3><a href="/image-to-3d-converter/">Image to 3D Converter</a></h3>
+            <p>Best for users comparing angle generation with a traditional 3D workflow.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container reveal" aria-labelledby="seo-title">
+        <div class="section-intro">
+          <p class="eyebrow">Overview</p>
+          <h2 id="seo-title">What this tool does</h2>
+        </div>
+        <article class="card prose-card left">
+          <p>
+            imgcraft AI is an <strong>AI product angle generator</strong> for product teams. Start with one image,
+            control the viewing direction with X/Y/Z, and generate new angles without a full 3D workflow.
+          </p>
+        </article>
+      </section>
+
+      <section id="faq" class="section container reveal" aria-labelledby="faq-title">
+        <div class="section-intro">
+          <h2 id="faq-title">Frequently<br />Asked<br />Questions</h2>
+        </div>
+        <div class="faq-list">
+          <details class="card left">
+            <summary>What does this image to 3D converter actually generate?</summary>
+            <p>It generates new product views from a single uploaded image so you can present the item from more than one angle.</p>
+          </details>
+          <details class="card left">
+            <summary>Do I need a CAD file or a real 3D model first?</summary>
+            <p>No. The workflow is based on an uploaded image plus angle controls, not a traditional 3D asset pipeline.</p>
+          </details>
+          <details class="card left">
+            <summary>Can the output be used in product pages and ads?</summary>
+            <p>Yes. The generated images are intended for commercial use cases such as product detail pages, campaign creative, and listings.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="section container reveal" aria-labelledby="cta-title">
+        <div class="card cta-card">
+          <p class="eyebrow">Try it</p>
+          <h2 id="cta-title">Generate more angles from one image</h2>
+          <p>Upload a product image, adjust the angle, and export the result.</p>
+          <a href="#tool" class="btn btn-primary">Try Tool</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <p>© <span id="year"></span> imgcraft AI</p>
+        <a href="/product-angle-generator/">Product Angle Generator</a>
+        <a href="/image-to-3d-converter/">Image to 3D Converter</a>
+      </div>
+    </footer>
+
+    <script src="/src/site.js?v=10" type="module"></script>
+  </body>
+</html>

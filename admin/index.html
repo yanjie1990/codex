@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>imgcraft AI Admin</title>
+    <meta name="google-client-id" content="774466746219-sd2uv6g8eqttbhd7vltshhp2pqslhd4e.apps.googleusercontent.com" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon_imgcraftai.svg" />
+    <link rel="stylesheet" href="../src/styles.css" />
+    <style>
+      .admin-shell {
+        padding: 4.5rem 0 5rem;
+      }
+
+      .admin-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.4rem;
+      }
+
+      .admin-actions {
+        display: flex;
+        gap: 0.7rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .admin-table-wrap {
+        overflow-x: auto;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 980px;
+      }
+
+      .admin-table th,
+      .admin-table td {
+        padding: 0.85rem 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .admin-table th {
+        color: var(--muted);
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .admin-toolbar {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .admin-toolbar input {
+        flex: 1 1 260px;
+        min-height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        padding: 0 1rem;
+      }
+
+      .admin-status {
+        color: var(--muted);
+      }
+
+      .admin-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.24rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .admin-badge.ok {
+        color: #b8ffcf;
+        background: rgba(78, 210, 137, 0.12);
+      }
+
+      .admin-badge.warn {
+        color: #ffd66a;
+        background: rgba(255, 214, 102, 0.12);
+      }
+
+      .admin-login-card {
+        display: grid;
+        gap: 0.9rem;
+        max-width: 560px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container admin-shell">
+      <section class="section-intro">
+        <p class="eyebrow">Admin</p>
+        <h1>Whitelist management</h1>
+        <p>Grant subscription bypass while keeping generation counts and usage tracking intact.</p>
+      </section>
+
+      <section class="card left admin-login-card" id="loginCard">
+        <h2 id="loginTitle">Sign in to continue</h2>
+        <p id="loginCopy" class="admin-status">Use your Google account to access the admin panel.</p>
+        <div class="admin-actions">
+          <div id="googleSignInMount" class="google-signin-mount hidden"></div>
+          <button id="loginBtn" class="btn btn-primary" type="button">Sign in with Google</button>
+        </div>
+      </section>
+
+      <section class="card left hidden" id="panelCard">
+        <div class="admin-head">
+          <div>
+            <p class="eyebrow">Users</p>
+            <h2 id="panelTitle">Users</h2>
+            <p id="panelCopy" class="admin-status">Search by email or name, then toggle whitelist access.</p>
+          </div>
+          <div class="admin-actions">
+            <button id="refreshBtn" class="btn btn-ghost" type="button">Refresh</button>
+            <button id="logoutBtn" class="btn btn-ghost" type="button">Log out</button>
+          </div>
+        </div>
+
+        <div class="admin-toolbar">
+          <input id="searchInput" type="search" placeholder="Search users by email, name, or id" />
+        </div>
+
+        <div class="admin-status" id="statusLine">Loading users…</div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Subscription</th>
+                <th>Generations</th>
+                <th>Whitelist</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="userRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/admin/src/admin.js?v=4"></script>
+  </body>
+</html>

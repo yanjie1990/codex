@@ -1,0 +1,10 @@
+.vercel
+.env
+.env.local
+.env.*.local
+.DS_Store
+.playwright-mcp
+node_modules
+workspace
+!.env.example
+!.env.production.example

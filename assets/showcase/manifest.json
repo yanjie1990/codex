@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-04-16T03:36:25.064Z",
+  "model": "doubao-seedream-4-0-250828",
+  "items": [
+    {
+      "id": "cyberpunk-ninja-original",
+      "title": "Original image",
+      "file": "cyberpunk-ninja-original.png",
+      "source": true,
+      "angle": {
+        "x": 0,
+        "y": 0,
+        "z": 1
+      },
+      "prompt": "Original uploaded reference image."
+    },
+    {
+      "id": "cyberpunk-ninja-left-three-quarter",
+      "title": "Left three-quarter view",
+      "angle": {
+        "x": 0,
+        "y": -35,
+        "z": 0.9
+      },
+      "prompt": "Use the uploaded cyberpunk ninja portrait as the exact subject reference. Generate the same character from a left three-quarter camera angle, about 35 degrees to the subject left. Preserve identity, outfit, color palette, hair, mask, accessories, lighting mood, and photorealistic detail. Change only the camera angle and visible side of the subject. No new character, no style change, no text.",
+      "file": "cyberpunk-ninja-left-three-quarter.jpg"
+    },
+    {
+      "id": "cyberpunk-ninja-right-three-quarter",
+      "title": "Right three-quarter view",
+      "angle": {
+        "x": 0,
+        "y": 35,
+        "z": 0.9
+      },
+      "prompt": "Use the uploaded cyberpunk ninja portrait as the exact subject reference. Generate the same character from a right three-quarter camera angle, about 35 degrees to the subject right. Preserve identity, outfit, color palette, hair, mask, accessories, lighting mood, and photorealistic detail. Change only the camera angle and visible side of the subject. No new character, no style change, no text.",
+      "file": "cyberpunk-ninja-right-three-quarter.jpg"
+    },
+    {
+      "id": "cyberpunk-ninja-side-view",
+      "title": "Side view",
+      "angle": {
+        "x": 0,
+        "y": 90,
+        "z": 1.1
+      },
+      "prompt": "Use the uploaded cyberpunk ninja portrait as the exact subject reference. Generate the same character from a clean side profile camera angle, about 90 degrees from the original view. Preserve identity, outfit, color palette, hair, mask, accessories, lighting mood, and photorealistic detail. Change only the camera angle. No new character, no style change, no text.",
+      "file": "cyberpunk-ninja-side-view.jpg"
+    },
+    {
+      "id": "cyberpunk-ninja-back-view",
+      "title": "Back view",
+      "angle": {
+        "x": 0,
+        "y": 180,
+        "z": -1.2
+      },
+      "prompt": "Use the uploaded cyberpunk ninja portrait as the exact subject reference. Generate the same character from a back view, camera behind the subject. Show the rear of the outfit, hair silhouette, cyberpunk ninja styling, and consistent lighting. Preserve color palette, materials, body proportions, and photorealistic detail. The output must clearly be a back view. No front-facing face, no new character, no text.",
+      "file": "cyberpunk-ninja-back-view.jpg"
+    }
+  ]
+}

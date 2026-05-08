@@ -12,7 +12,7 @@
     "check:prod": "node ./scripts/check-production-env.mjs",
     "verify:prod": "node ./scripts/verify-production.mjs",
     "lint": "node ./scripts/lint.mjs",
-    "test": "node --test ./tests/production-config.test.mjs ./tests/app-smoke.test.mjs",
+    "test": "node --test ./tests/production-config.test.mjs ./tests/app-smoke.test.mjs ./tests/camera-prompt.test.mjs",
     "build": "node ./scripts/build.mjs"
   }
 }

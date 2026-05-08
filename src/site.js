@@ -1,3 +1,5 @@
+import { buildAnglePrompt } from './camera-prompt.js';
+
 const yearEl = document.getElementById('year');
 const headerEl = document.querySelector('.site-header');
 const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
@@ -1270,99 +1272,12 @@ function initSeoTool() {
   }
 
   function buildPrompt() {
-    const xRot = parseInt(xRotSlider.value, 10);
-    const yRot = parseInt(yRotSlider.value, 10);
-    const zDist = parseFloat(zRotSlider.value);
-    const xAngle = (xRot * Math.PI) / 180;
-    const yAngle = (yRot * Math.PI) / 180;
-    const distance = Math.abs(zDist);
-    const posX = Math.round(distance * Math.sin(yAngle) * Math.cos(xAngle) * 10) / 10;
-    const posY = Math.round(-distance * Math.sin(xAngle) * 10) / 10;
-    const posZ = Math.round(zDist * Math.cos(yAngle) * Math.cos(xAngle) * 10) / 10;
-    const verticalView =
-      posY > 0
-        ? {
-            zh: `相机在主体上方，采用明显的俯视角，从上往下看`,
-            en: 'The camera is above the subject, using a clear top-down bird’s-eye view from above.'
-          }
-        : posY < 0
-          ? {
-              zh: `相机在主体下方，采用明显的仰视角，从下往上看`,
-              en: 'The camera is below the subject, using a clear low-angle worm’s-eye view from below.'
-            }
-          : {
-              zh: `相机与主体大致同高，保持水平视角`,
-              en: 'The camera stays level with the subject and keeps a flat eye-level view.'
-            };
-    const horizontalView =
-      posX > 0
-        ? {
-            zh: `相机略偏主体右侧`,
-            en: 'The camera is slightly to the right of the subject.'
-          }
-        : posX < 0
-          ? {
-              zh: `相机略偏主体左侧`,
-              en: 'The camera is slightly to the left of the subject.'
-            }
-          : {
-              zh: `相机保持在主体正前方/正后方的中轴线上`,
-              en: 'The camera stays on the central axis relative to the subject.'
-            };
-    const depthView =
-      zDist < 0
-        ? {
-            zh: `相机在主体背面，输出必须是背面视角`,
-            en: 'The camera is behind the subject, so the final image must be a back view.'
-          }
-        : {
-            zh: `相机在主体正面，输出必须是正面视角`,
-            en: 'The camera is in front of the subject, so the final image must be a front view.'
-          };
-    const zhParts = [];
-    const zhXAxis =
-      xRot === 0
-        ? 'X 轴不变，保持水平视角'
-        : xRot > 0
-          ? `X 轴为正 ${xRot} 度，表示把相机压到主体下方，形成仰视`
-          : `X 轴为负 ${Math.abs(xRot)} 度，表示把相机抬到主体上方，形成俯视`;
-    const zhYAxis =
-      yRot === 0
-        ? 'Y 轴不变，保持正前方'
-        : yRot > 0
-          ? `Y 轴为正 ${yRot} 度，表示向右绕转视角`
-          : `Y 轴为负 ${Math.abs(yRot)} 度，表示向左绕转视角`;
-    const zhZAxis =
-      zDist < 0
-        ? `Z 轴为负 ${Math.abs(zDist).toFixed(1)}，表示相机在主体背面`
-        : `Z 轴为正 ${zDist.toFixed(1)}，表示相机在主体正面`;
-
-    zhParts.push(verticalView.zh);
-    zhParts.push(horizontalView.zh);
-    zhParts.push(depthView.zh);
-    zhParts.push(`相机距离物体约${distance.toFixed(1)}个单位`);
-
-    const enXAxis =
-      xRot === 0
-        ? 'X axis unchanged, keep a level camera angle.'
-        : xRot > 0
-          ? `X axis is +${xRot} degrees, which means the camera is below the subject and the view must be a low-angle upward shot.`
-          : `X axis is -${Math.abs(xRot)} degrees, which means the camera is above the subject and the view must be a high-angle top-down shot.`;
-    const enYAxis =
-      yRot === 0
-        ? 'Y axis unchanged, keep a straight front-facing view.'
-        : yRot > 0
-          ? `Y axis is +${yRot} degrees, which means rotating the view slightly to the right.`
-          : `Y axis is -${Math.abs(yRot)} degrees, which means rotating the view slightly to the left.`;
-    const enZAxis =
-      zDist < 0
-        ? `Z axis is ${zDist.toFixed(1)}, which means the camera is behind the subject and the output must be a back view.`
-        : `Z axis is +${zDist.toFixed(1)}, which means the camera is in front of the subject and the output must be a front view.`;
-
-    const zhPrompt = `相机位置坐标(${posX}, ${posY}, ${posZ})。请把这组坐标翻译成明确的摄影视角，不要只看轴名称：${verticalView.zh}；${horizontalView.zh}；${depthView.zh}。请严格同时遵守以下三轴变化：${zhXAxis}；${zhYAxis}；${zhZAxis}。${zhParts.join('，')}。最终画面必须同时体现 X、Y、Z 的变化，保持图片主体不变，只改变拍摄角度。`;
-    const enPrompt = `Camera position (${posX}, ${posY}, ${posZ}). Translate these coordinates into a clear photographic viewpoint, not just axis labels: ${verticalView.en} ${horizontalView.en} ${depthView.en} Apply all three axis changes together: ${enXAxis} ${enYAxis} ${enZAxis} The final image must reflect X, Y, and Z together while keeping the subject unchanged and changing only the shooting angle.`;
-
-    return locale.startsWith('zh') ? zhPrompt : enPrompt;
+    return buildAnglePrompt({
+      xRot: xRotSlider.value,
+      yRot: yRotSlider.value,
+      zDist: zRotSlider.value,
+      locale
+    });
   }
 
   function handleFile(file) {

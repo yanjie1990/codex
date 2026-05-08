@@ -4,3 +4,5 @@
 .vercel
 node_modules
 npm-debug.log*
+.data
+promo-video

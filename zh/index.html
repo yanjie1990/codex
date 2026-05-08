@@ -15,8 +15,10 @@
     <link rel="alternate" hreflang="en" href="https://www.imgcraftai.com/" />
     <link rel="alternate" hreflang="zh-CN" href="https://www.imgcraftai.com/zh/index.html" />
     <meta property="og:url" content="https://www.imgcraftai.com/zh/index.html" />
-    <link rel="stylesheet" href="../src/styles.css" />
-    <link rel="stylesheet" href="../src/theme-dark.css" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon_imgcraftai.svg" />
+    <meta name="google-client-id" content="774466746219-sd2uv6g8eqttbhd7vltshhp2pqslhd4e.apps.googleusercontent.com" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/theme-dark.css" />
   </head>
   <body>
     <header id="top" class="site-header">
@@ -37,7 +39,25 @@
             <span>|</span>
             <a href="https://www.imgcraftai.com/zh/index.html" class="active" aria-current="page">中文</a>
           </div>
-          <a href="https://www.imgcraftai.com" class="btn btn-primary" target="_blank" rel="noreferrer">免费开始</a>
+          <div id="authStatus" class="auth-status hidden">
+            <img id="authAvatar" class="auth-avatar hidden" alt="" />
+            <div class="auth-status-copy">
+              <span id="authLabel" class="auth-label"></span>
+              <span id="authName" class="auth-name"></span>
+              <span id="authEmail" class="auth-email"></span>
+              <span id="subscriptionState" class="auth-state">正在检查状态…</span>
+              <div class="auth-status-badges">
+                <span id="trialCountState" class="account-trial">3 次免费</span>
+                <div id="whitelistBadge" class="account-badge hidden">白名单</div>
+              </div>
+            </div>
+            <button id="logoutBtn" class="btn btn-ghost auth-logout" type="button">退出</button>
+            <button id="adminBtn" class="btn btn-ghost auth-admin-btn hidden" type="button">后台</button>
+          </div>
+          <div id="googleSignInMount" class="google-signin-mount hidden"></div>
+          <button id="loginBtn" class="btn btn-ghost" type="button">Google 登录</button>
+          <span id="authMessage" class="auth-message" aria-live="polite"></span>
+          <button id="subscribeBtn" class="btn btn-primary" type="button">订阅</button>
         </div>
       </div>
     </header>
@@ -175,6 +195,6 @@
       </div>
     </footer>
 
-    <script src="../src/site.js?v=10" type="module"></script>
+    <script src="/src/site.js?v=10" type="module"></script>
   </body>
 </html>

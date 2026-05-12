@@ -226,15 +226,22 @@ function parseJsonBody(buffer) {
   return JSON.parse(buffer.toString('utf8'));
 }
 
+const staticRouteAliases = new Map([
+  ['/', '/index.html'],
+  ['/index.html', '/index.html'],
+  ['/zh', '/zh/index.html'],
+  ['/zh/', '/zh/index.html'],
+  ['/zh/index.html', '/zh/index.html']
+]);
+
+const canonicalRouteRedirects = new Map([
+  ['/index.html', '/'],
+  ['/zh', '/zh/index.html'],
+  ['/zh/', '/zh/index.html']
+]);
+
 function resolveStaticPath(root, urlPath) {
-  const routeAliases = new Map([
-    ['/', '/index.html'],
-    ['/index.html', '/index.html'],
-    ['/zh', '/zh/index.html'],
-    ['/zh/', '/zh/index.html'],
-    ['/zh/index.html', '/zh/index.html']
-  ]);
-  const pathname = routeAliases.get(urlPath) || urlPath;
+  const pathname = staticRouteAliases.get(urlPath) || urlPath;
   const normalizedPath = pathname.endsWith('/') ? `${pathname}index.html` : pathname;
   const normalized = normalize(normalizedPath).replace(/^\.+/, '');
   return join(root, normalized);
@@ -337,11 +344,15 @@ function getCanonicalRedirectLocation(req, url, env) {
   try {
     const canonical = new URL(env.BASE_URL);
     const requestHost = String(req.headers['x-forwarded-host'] || req.headers.host || '').toLowerCase();
-    if (!requestHost || requestHost === canonical.host.toLowerCase()) {
+    const normalizedHost = canonical.host.toLowerCase();
+    const canonicalPathname = canonicalRouteRedirects.get(url.pathname) || url.pathname;
+    const needsHostRedirect = Boolean(requestHost) && requestHost !== normalizedHost;
+    const needsPathRedirect = canonicalPathname !== url.pathname;
+    if (!needsHostRedirect && !needsPathRedirect) {
       return '';
     }
 
-    canonical.pathname = url.pathname;
+    canonical.pathname = canonicalPathname;
     canonical.search = url.search;
     return canonical.toString();
   } catch {
@@ -1550,7 +1561,7 @@ export function createAppServer({
       const url = new URL(req.url, `http://${req.headers.host}`);
       const canonicalRedirect = getCanonicalRedirectLocation(req, url, env);
       if (canonicalRedirect) {
-        res.writeHead(302, { Location: canonicalRedirect });
+        res.writeHead(301, { Location: canonicalRedirect });
         res.end();
         return;
       }

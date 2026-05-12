@@ -149,6 +149,36 @@ test('production redirects bare domain requests to canonical www origin', async 
 
   await app.handle(req, res);
 
-  assert.equal(statusCode, 302);
+  assert.equal(statusCode, 301);
   assert.equal(headers.Location, 'https://www.imgcraftai.com/api/auth/google/start?source=smoke');
+});
+
+test('production redirects canonical path aliases to their preferred URL', async () => {
+  const app = createAppServer({
+    root: process.cwd(),
+    env: buildProductionEnv()
+  });
+
+  const req = {
+    method: 'GET',
+    url: '/zh/?source=smoke',
+    headers: {
+      host: 'www.imgcraftai.com',
+      'x-forwarded-host': 'www.imgcraftai.com'
+    }
+  };
+  let statusCode = 0;
+  let headers = {};
+  const res = {
+    writeHead(status, nextHeaders) {
+      statusCode = status;
+      headers = nextHeaders;
+    },
+    end() {}
+  };
+
+  await app.handle(req, res);
+
+  assert.equal(statusCode, 301);
+  assert.equal(headers.Location, 'https://www.imgcraftai.com/zh/index.html?source=smoke');
 });

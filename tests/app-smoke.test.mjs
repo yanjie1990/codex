@@ -36,6 +36,8 @@ async function createFixtureRoot() {
     ['zh', 'dir'],
     ['product-angle-generator', 'dir'],
     ['image-to-3d-converter', 'dir'],
+    ['product-image-angle-generator', 'dir'],
+    ['listing-image-generator', 'dir'],
     ['admin', 'dir'],
     ['src', 'dir'],
     ['assets', 'dir'],
@@ -84,11 +86,33 @@ test('serves the main pages and static assets', async () => {
     assert.ok(address && typeof address !== 'string', 'server address is available');
     const baseUrl = `http://127.0.0.1:${address.port}`;
 
-    const [home, zhPage, productAnglePage, imageTo3dPage, adminPage, me, asset, robots, sitemap] = await Promise.all([
+    const [
+      home,
+      zhPage,
+      productAnglePage,
+      imageTo3dPage,
+      productImageAnglePage,
+      listingImagePage,
+      zhProductAnglePage,
+      zhImageTo3dPage,
+      zhProductImageAnglePage,
+      zhListingImagePage,
+      adminPage,
+      me,
+      asset,
+      robots,
+      sitemap
+    ] = await Promise.all([
       fetch(`${baseUrl}/`),
       fetch(`${baseUrl}/zh/index.html`),
       fetch(`${baseUrl}/product-angle-generator/`),
       fetch(`${baseUrl}/image-to-3d-converter/`),
+      fetch(`${baseUrl}/product-image-angle-generator/`),
+      fetch(`${baseUrl}/listing-image-generator/`),
+      fetch(`${baseUrl}/zh/product-angle-generator/`),
+      fetch(`${baseUrl}/zh/image-to-3d-converter/`),
+      fetch(`${baseUrl}/zh/product-image-angle-generator/`),
+      fetch(`${baseUrl}/zh/listing-image-generator/`),
       fetch(`${baseUrl}/admin/index.html`),
       fetch(`${baseUrl}/api/me`),
       fetch(`${baseUrl}/assets/favicon_imgcraftai.svg`),
@@ -100,11 +124,20 @@ test('serves the main pages and static assets', async () => {
     assert.equal(zhPage.status, 200);
     assert.equal(productAnglePage.status, 200);
     assert.equal(imageTo3dPage.status, 200);
+    assert.equal(productImageAnglePage.status, 200);
+    assert.equal(listingImagePage.status, 200);
+    assert.equal(zhProductAnglePage.status, 200);
+    assert.equal(zhImageTo3dPage.status, 200);
+    assert.equal(zhProductImageAnglePage.status, 200);
+    assert.equal(zhListingImagePage.status, 200);
     assert.equal(adminPage.status, 200);
     assert.equal(me.status, 200);
     assert.equal(asset.status, 200);
     assert.equal(robots.status, 200);
     assert.equal(sitemap.status, 200);
+
+    assert.match(home.headers.get('cache-control') || '', /must-revalidate/);
+    assert.match(asset.headers.get('cache-control') || '', /max-age=2592000/);
 
     const homeHtml = await home.text();
     assert.match(homeHtml, /AI Product Angle Generator/);
@@ -114,6 +147,8 @@ test('serves the main pages and static assets', async () => {
 
     const sitemapText = await sitemap.text();
     assert.match(sitemapText, /https:\/\/www\.imgcraftai\.com\/product-angle-generator\//);
+    assert.match(sitemapText, /https:\/\/www\.imgcraftai\.com\/product-image-angle-generator\//);
+    assert.match(sitemapText, /https:\/\/www\.imgcraftai\.com\/zh\/listing-image-generator\//);
 
     const meJson = await me.json();
     assert.equal(meJson.authenticated, false);

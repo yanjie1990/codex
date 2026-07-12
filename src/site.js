@@ -956,18 +956,28 @@ function initSeoTool() {
         fileType: '请上传图片文件',
         fileSize: '图片大小不能超过 8MB',
         noImage: '请先上传图片',
+        checking: '已点击生成，正在检查状态…',
+        loading: '图片已加载，可以点击生成。',
+        loginRequired: '请先登录后再生成。',
+        quotaReached: '免费额度已用完，请点右上角订阅继续。',
         generating: '生成中...',
         failed: '生成失败',
         complete: '完成',
+        success: '生成完成，可查看结果。',
         promptLabel: '相机位置坐标'
       }
     : {
         fileType: 'Please upload an image file',
         fileSize: 'Image size must be under 8MB',
         noImage: 'Please upload an image first',
+        checking: 'Generate clicked. Checking state…',
+        loading: 'Image loaded. You can generate now.',
+        loginRequired: 'Please sign in before generating.',
+        quotaReached: 'Your free generations are used up. Use the Subscribe button to continue.',
         generating: 'Generating...',
         failed: 'Generation failed',
         complete: 'Done',
+        success: 'Generation complete. Review the result.',
         promptLabel: 'Camera position'
       };
 
@@ -987,6 +997,7 @@ function initSeoTool() {
   const resetBtn = document.getElementById('resetRotation');
   const promptDisplay = document.getElementById('promptDisplay');
   const generatedPrompt = document.getElementById('generatedPrompt');
+  const toolStatus = document.getElementById('toolStatus');
   const resultImage = document.getElementById('resultImage3D');
   const resultPlaceholder = document.getElementById('resultPlaceholder3D');
   const progressContainer = document.getElementById('progressContainer3D');
@@ -1169,6 +1180,7 @@ function initSeoTool() {
         canvasPreview.src = imageUrl;
         canvasPreview.classList.remove('hidden');
       }
+      canvasContainer?.classList.add('has-source');
       confirmBtn.disabled = false;
       return;
     }
@@ -1217,6 +1229,7 @@ function initSeoTool() {
       imagePlane.rotation.set(-0.16, -0.12, 0.04);
       imagePlane.position.set(0.12, -0.04, 0.02);
       scene.add(imagePlane);
+      canvasContainer?.classList.add('has-source');
       canvasPreview?.classList.add('hidden');
       renderer?.domElement?.classList.remove('hidden');
       confirmBtn.disabled = false;
@@ -1294,10 +1307,13 @@ function initSeoTool() {
     const reader = new FileReader();
     reader.onload = (event) => {
       currentImageBase64 = event.target.result;
+      resultImage?.classList.add('hidden');
+      resultImage?.removeAttribute('src');
+      resultPlaceholder?.classList.remove('hidden');
+      progressContainer?.classList.add('hidden');
+      setProgress(0);
       if (toolStatus) {
-        toolStatus.textContent = locale.startsWith('zh')
-          ? '图片已加载，可以点击生成。'
-          : 'Image loaded. You can generate now.';
+        toolStatus.textContent = copy.loading;
         toolStatus.classList.remove('is-error');
         toolStatus.classList.add('is-success');
       }
@@ -1333,7 +1349,7 @@ function initSeoTool() {
   confirmBtn?.addEventListener('click', async () => {
     try {
       if (toolStatus) {
-        toolStatus.textContent = locale.startsWith('zh') ? '已点击生成，正在检查状态…' : 'Generate clicked. Checking state…';
+        toolStatus.textContent = copy.checking;
         toolStatus.classList.remove('is-error');
         toolStatus.classList.add('is-success');
       }
@@ -1341,9 +1357,7 @@ function initSeoTool() {
 
       if (!authState?.authenticated) {
         if (toolStatus) {
-          toolStatus.textContent = locale.startsWith('zh')
-            ? '请先登录后再生成。'
-            : 'Please sign in before generating.';
+          toolStatus.textContent = copy.loginRequired;
           toolStatus.classList.remove('is-success');
           toolStatus.classList.add('is-error');
         }
@@ -1364,9 +1378,7 @@ function initSeoTool() {
       const isWhitelisted = Boolean(authState?.user?.isWhitelisted);
       if (!authState.subscription?.active && !isWhitelisted && (authState.usage?.freeUsesLeft ?? 0) <= 0) {
         if (toolStatus) {
-          toolStatus.textContent = locale.startsWith('zh')
-            ? '免费额度已用完，请点右上角订阅继续。'
-            : 'Your free generations are used up. Use the Subscribe button to continue.';
+          toolStatus.textContent = copy.quotaReached;
           toolStatus.classList.remove('is-success');
           toolStatus.classList.add('is-error');
         }
@@ -1388,6 +1400,8 @@ function initSeoTool() {
       confirmBtn.disabled = true;
       confirmBtn.textContent = copy.generating;
       progressContainer.classList.remove('hidden');
+      resultImage.classList.add('hidden');
+      resultPlaceholder.classList.add('hidden');
       setProgress(16);
 
       const compressedBase64 = await compressImage(currentImageBase64);
@@ -1431,6 +1445,11 @@ function initSeoTool() {
       resultImage.classList.remove('hidden');
       resultPlaceholder.classList.add('hidden');
       setProgress(100, copy.complete);
+      if (toolStatus) {
+        toolStatus.textContent = copy.success;
+        toolStatus.classList.remove('is-error');
+        toolStatus.classList.add('is-success');
+      }
 
       if (typeof window.__imgcraftRefreshUsage === 'function') {
         window.__imgcraftRefreshUsage();
@@ -1453,7 +1472,7 @@ function initSeoTool() {
 
   confirmBtn?.addEventListener('pointerdown', () => {
     if (toolStatus) {
-      toolStatus.textContent = locale.startsWith('zh') ? '按钮已按下…' : 'Button pressed…';
+      toolStatus.textContent = copy.checking;
       toolStatus.classList.remove('is-error');
       toolStatus.classList.add('is-success');
     }
@@ -1473,9 +1492,6 @@ function initSeoTool() {
 
   window.addEventListener('resize', onResize);
   syncSliderLabels();
-  if (hasThree) {
-    init3D();
-  }
 }
 
 initSeoTool();

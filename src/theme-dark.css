@@ -1,45 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --bg: #0a0d10;
-  --bg-soft: #10101a;
-  --panel: rgba(20, 20, 30, 0.86);
-  --panel-strong: #171726;
-  --text: #f7f7fb;
-  --muted: rgba(255, 255, 255, 0.4);
-  --muted-strong: rgba(255, 255, 255, 0.64);
-  --muted-soft: rgba(255, 255, 255, 0.24);
+  --bg: #070a10;
+  --bg-soft: #0d1117;
+  --panel: rgba(16, 21, 30, 0.94);
+  --panel-strong: rgba(19, 25, 36, 0.98);
+  --text: #f5f7fb;
+  --muted: rgba(239, 244, 255, 0.48);
+  --muted-strong: rgba(239, 244, 255, 0.72);
+  --muted-soft: rgba(239, 244, 255, 0.38);
   --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --accent: #5b72fe;
-  --accent-2: #ced5ff;
-  --accent-text: #0b102f;
-  --accent-strong: #ced5ff;
-  --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --accent: #7a8cff;
+  --accent-2: #d9e0ff;
+  --accent-text: #0c1220;
+  --accent-strong: #e4eaff;
+  --shadow: 0 28px 72px rgba(0, 0, 0, 0.42);
   color-scheme: dark;
 }
 
-html {
+html,
+body {
   color-scheme: dark;
   background: var(--bg);
 }
 
 body {
   background:
-    radial-gradient(circle at 12% 8%, rgba(91, 114, 254, 0.16), transparent 28%),
-    radial-gradient(circle at 84% 12%, rgba(206, 213, 255, 0.1), transparent 20%),
-    radial-gradient(circle at 50% 115%, rgba(255, 255, 255, 0.05), transparent 34%),
-    linear-gradient(180deg, #090c11 0%, #0a0d10 46%, #090b0f 100%);
+    radial-gradient(circle at 18% 0%, rgba(122, 140, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 82% 10%, rgba(217, 224, 255, 0.08), transparent 20%),
+    linear-gradient(180deg, #070a10 0%, #090d14 54%, #07090f 100%);
 }
 
 body::before {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04), transparent 32%);
-  background-size: 56px 56px, 56px 56px, auto;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 78%);
-  opacity: 0.34;
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 72px 72px, 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.32), transparent 84%);
+  opacity: 0.2;
 }
 
 input,
@@ -50,140 +49,36 @@ button {
 }
 
 .site-header {
-  background: rgba(10, 13, 16, 0.72);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(8, 11, 17, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .site-header.scrolled {
-  background: rgba(10, 13, 16, 0.86);
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
-}
-
-.lang-switch {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.lang-switch span {
-  color: rgba(255, 255, 255, 0.34);
-}
-
-.hero::before {
-  background:
-    radial-gradient(circle at center, rgba(91, 114, 254, 0.22), transparent 56%),
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.16), transparent 34%);
-}
-
-.hero .eyebrow,
-.workflow-section .eyebrow {
-  border-color: rgba(91, 114, 254, 0.2);
-  background: rgba(91, 114, 254, 0.12);
-  color: var(--accent-2);
-}
-
-.hero-proof,
-.hero-proof-item,
-.hero-card,
-.card,
-.cta-card,
-.tool-shell,
-.tool-panel,
-.tool-controls,
-.tool-result,
-.workflow-media-card,
-.workflow-export-image,
-.ba-stage,
-.mini-card,
-.tool-upload,
-.btn-ghost,
-#loginBtn,
-.workflow-upload-pill,
-.workflow-slider-row {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, rgba(20, 20, 30, 0.9), rgba(13, 16, 21, 0.94));
-  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
-}
-
-.hero-proof {
-  background: linear-gradient(180deg, rgba(17, 20, 26, 0.9), rgba(13, 16, 21, 0.84));
-}
-
-.hero-proof-item {
-  background: linear-gradient(180deg, rgba(17, 20, 26, 0.95), rgba(13, 16, 21, 0.9));
-}
-
-.hero-proof-item:hover,
-.card:hover,
-.tool-panel:hover,
-.workflow-media-card:hover,
-.ba-stage:hover {
-  border-color: rgba(91, 114, 254, 0.26);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24);
-}
-
-.hero-angle-frame {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, rgba(17, 20, 26, 0.96), rgba(12, 16, 21, 0.96));
-}
-
-.hero-angle-card figcaption {
-  background: rgba(10, 13, 16, 0.72);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.hero-angle-divider svg {
-  stroke: rgba(206, 213, 255, 0.92);
-}
-
-.tool-shell {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(91, 114, 254, 0.1), transparent 24%),
-    radial-gradient(circle at 84% 0%, rgba(255, 255, 255, 0.08), transparent 18%),
-    linear-gradient(180deg, rgba(15, 18, 24, 0.98), rgba(10, 13, 16, 0.98));
-}
-
-.tool-canvas {
-  border-color: rgba(255, 255, 255, 0.08);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(91, 114, 254, 0.12), transparent 30%),
-    linear-gradient(180deg, #13171d, #0c1015);
-}
-
-.tool-upload:hover,
-.btn-ghost:hover,
-#loginBtn:hover,
-.workflow-upload-pill:hover,
-.workflow-slider-row:hover {
-  border-color: rgba(91, 114, 254, 0.26);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.workflow-canvas-stage {
-  border-color: rgba(255, 255, 255, 0.08);
-  background: linear-gradient(180deg, rgba(17, 20, 26, 0.2), rgba(17, 20, 26, 0.34));
-}
-
-.workflow-slider-thumb {
-  box-shadow:
-    0 0 0 2px rgba(10, 13, 16, 0.92) inset,
-    0 0 0 1px rgba(255, 255, 255, 0.16);
-}
-
-.workflow-slider-fill,
-.btn-primary,
-#subscribeBtn,
-#confirm3DBtn {
-  box-shadow: 0 14px 30px rgba(91, 114, 254, 0.22);
+  background: rgba(8, 11, 17, 0.9);
+  border-bottom-color: rgba(255, 255, 255, 0.07);
 }
 
 .btn-primary,
 #subscribeBtn,
 #confirm3DBtn {
   color: var(--accent-text);
-  background: linear-gradient(135deg, var(--accent) 0%, #ced5ff 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  box-shadow: 0 14px 36px rgba(122, 140, 255, 0.22);
 }
 
-.footer-wrap a:hover {
-  color: var(--text);
+.btn-ghost:hover,
+#loginBtn:hover,
+.tool-upload:hover,
+.workflow-upload-pill:hover,
+.workflow-slider-row:hover {
+  border-color: rgba(122, 140, 255, 0.24);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hero-angle-divider svg {
+  stroke: rgba(217, 224, 255, 0.74);
+}
+
+.tool-progress {
+  background: rgba(7, 10, 15, 0.82);
 }

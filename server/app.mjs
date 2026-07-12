@@ -36,6 +36,7 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.avif': 'image/avif',
   '.webp': 'image/webp',
   '.json': 'application/json; charset=utf-8'
 };
@@ -245,6 +246,24 @@ function resolveStaticPath(root, urlPath) {
   const normalizedPath = pathname.endsWith('/') ? `${pathname}index.html` : pathname;
   const normalized = normalize(normalizedPath).replace(/^\.+/, '');
   return join(root, normalized);
+}
+
+function getStaticCacheControl(filePath) {
+  const extension = extname(filePath).toLowerCase();
+
+  if (extension === '.html' || extension === '.xml' || extension === '.txt') {
+    return 'public, max-age=0, must-revalidate';
+  }
+
+  if (['.png', '.jpg', '.jpeg', '.webp', '.avif', '.svg'].includes(extension)) {
+    return 'public, max-age=2592000, stale-while-revalidate=31536000';
+  }
+
+  if (['.css', '.js', '.mjs', '.json'].includes(extension)) {
+    return 'public, max-age=86400, stale-while-revalidate=604800';
+  }
+
+  return 'public, max-age=3600, must-revalidate';
 }
 
 function hashApiKey(raw) {
@@ -1579,7 +1598,10 @@ export function createAppServer({
       const filePath = resolveStaticPath(appRoot, url.pathname);
       const data = await readFile(filePath);
       const contentType = MIME_TYPES[extname(filePath)] || 'application/octet-stream';
-      res.writeHead(200, { 'Content-Type': contentType });
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': getStaticCacheControl(filePath)
+      });
       res.end(data);
     } catch (error) {
       if (error.code === 'ENOENT') {

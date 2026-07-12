@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { createAppServer } from '../server/app.mjs';
@@ -24,6 +25,23 @@ function buildProductionEnv(overrides = {}) {
     ...overrides
   };
 }
+
+test('Vercel bundles every public SEO landing page', () => {
+  const vercelConfig = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
+  const includedFiles = vercelConfig.builds?.[0]?.config?.includeFiles || [];
+
+  for (const pathname of [
+    'zh/**',
+    'product-angle-generator/**',
+    'product-image-angle-generator/**',
+    'image-to-3d-converter/**',
+    'listing-image-generator/**',
+    'robots.txt',
+    'sitemap.xml'
+  ]) {
+    assert.ok(includedFiles.includes(pathname), `Vercel includeFiles is missing ${pathname}`);
+  }
+});
 
 test('production rejects database fallback in production', () => {
   assert.throws(
